@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+
+// Array of prizes (you can replace these with images or your own prizes)
+const prizes = [
+  'Prize 1',
+  'Prize 2',
+  'Prize 3',
+  'Prize 4',
+  'Prize 5',
+  'Prize 6',
+  'Prize 7',
+  'Prize 8',
+  'Prize 9',
+  'Prize 10',
+  'Prize 11',
+  'Prize 12',
+  'Prize 13',
+  'Prize 14',
+  'Prize 15'
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [prize, setPrize] = useState(null);
+  const [hasSpun, setHasSpun] = useState(false);
+
+  // Function to handle the spinning logic
+  const handleSpin = () => {
+    if (hasSpun) return; // Prevent spinning again
+
+    const randomIndex = Math.floor(Math.random() * prizes.length);
+    setPrize(prizes[randomIndex]);
+    setHasSpun(true);
+  };
+
+  // Reset the spin
+  const resetSpin = () => {
+    setHasSpun(false);
+    setPrize(null);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="App">
+      <h1>Giveaway Slot Machine</h1>
+      <div className="wheel">
+        <button onClick={handleSpin} disabled={hasSpun} className="spin-button">
+          Spin the Wheel
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        {prize && !hasSpun && <div className="prize">{prize}</div>}
+        {hasSpun && (
+          <div className="result">
+            <h2>Congratulations! You won:</h2>
+            <p>{prize}</p>
+            <button onClick={resetSpin} className="reset-button">Spin Again</button>
+          </div>
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
+

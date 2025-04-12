@@ -11,11 +11,31 @@ h1 {
   margin-bottom: 20px;
 }
 
-.wheel {
+.wheel-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
+  position: relative;
+  height: 300px;
+}
+
+.wheel {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 8px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  position: absolute;
+  transition: transform 2s ease-in-out;
+  display: none;
+}
+
+.wheel.spin {
+  display: block;
 }
 
 .spin-button {
@@ -27,5 +47,46 @@ h1 {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px;
 }
+
+.spin-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.spin-button:hover {
+  background-color: #218838;
+}
+
+.prize {
+  margin-top: 20px;
+  font-size: 1.5em;
+  color: #ff6347;
+  font-weight: bold;
+}
+
+.result {
+  margin-top: 30px;
+}
+
+.result p {
+  font-size: 1.5em;
+  color: #007bff;
+}
+
+.reset-button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #e0a800;
+}
+
 

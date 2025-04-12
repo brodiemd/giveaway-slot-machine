@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 
-// Array of prizes (you can replace these with images or your own prizes)
+// Array of prizes (replace these with your actual prizes or images)
 const prizes = [
   'Prize 1',
   'Prize 2',
@@ -23,12 +23,14 @@ const prizes = [
 function App() {
   const [prize, setPrize] = useState(null);
   const [hasSpun, setHasSpun] = useState(false);
+  const [spinning, setSpinning] = useState(false);
   const [spinClass, setSpinClass] = useState(''); // To control the wheel spin animation
 
   // Function to handle the spinning logic
   const handleSpin = () => {
-    if (hasSpun) return; // Prevent spinning again
+    if (spinning || hasSpun) return; // Prevent spinning if already spinning or already spun
 
+    setSpinning(true);
     setSpinClass('spin'); // Trigger the spinning animation
 
     // Set a random prize after the animation delay
@@ -36,7 +38,8 @@ function App() {
       const randomIndex = Math.floor(Math.random() * prizes.length);
       setPrize(prizes[randomIndex]);
       setHasSpun(true);
-    }, 2000); // 2 seconds for the animation to finish
+      setSpinning(false);
+    }, 3000); // 3 seconds for the spinning animation
   };
 
   // Reset the spin
@@ -49,8 +52,14 @@ function App() {
   return (
     <div className="App">
       <h1>Giveaway Slot Machine</h1>
-      <div className="wheel-container">
-        <div className={`wheel ${spinClass}`} />
+      <div className="slot-machine">
+        <div className={`slots ${spinClass}`}>
+          {prizes.map((prize, index) => (
+            <div className="slot" key={index}>
+              {prize}
+            </div>
+          ))}
+        </div>
       </div>
       <button
         onClick={handleSpin}
@@ -59,8 +68,7 @@ function App() {
       >
         Spin the Wheel
       </button>
-      {prize && !hasSpun && <div className="prize">{prize}</div>}
-      {hasSpun && (
+      {prize && hasSpun && (
         <div className="result">
           <h2>Congratulations! You won:</h2>
           <p>{prize}</p>
@@ -74,5 +82,3 @@ function App() {
 }
 
 export default App;
-
-
